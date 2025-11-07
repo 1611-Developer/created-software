@@ -1,0 +1,41 @@
+<main class="max-w-6xl mx-auto pt-10 pb-20">
+  <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white mb-8 text-center">
+    Explore Projects
+  </h1>
+
+  <%= form_with url: explore_path, method: :get, local: false, data: { turbo_frame: "posts_grid" }, class: "flex justify-center items-center mb-8 space-x-2" do |form| %>
+    <%= form.search_field :query, value: params[:query], placeholder: "Search posts...",
+        class: "dark:text-white w-96 px-4 py-2 rounded-lg border border-gray-300 shadow focus:outline-none focus:ring focus:border-blue-300" %>
+    <%= form.submit "Search", class: "px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 transition" %>
+    <%= link_to "Clear Search", explore_path,
+        class: "px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition font-semibold ml-2",
+        data: { turbo_frame: "posts_grid" } %>
+  <% end %>
+
+  <turbo-frame id="posts_grid">
+    <% if @posts.any? %>
+      <div class="columns-1 sm:columns-2 md:columns-3 gap-6 space-y-6">
+        <% @posts.each do |post| %>
+          <div class="break-inside-avoid bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-6">
+            <h2 class="text-xl font-bold mb-2 dark:text-white text-gray-900"><%= post.title %></h2>
+            <p class="mb-2 text-gray-700 dark:text-white"><%= truncate(post.description, length: 120) %></p>
+            <div class="text-sm text-gray-500 mb-2 dark:text-gray-200">
+              By
+              <%= link_to post.user.user_name.capitalize, profile_by_username_path(post.user.user_name),
+                class: "text-blue-600 dark:text-blue-300 hover:underline font-semibold" %>
+              • <%= post.created_at.strftime('%b %d, %Y') %>
+            </div>
+            <%= link_to "View Post",
+              user_post_path(user_name: post.user.user_name, slug: post.slug),
+              class: "inline-block mt-2 px-3 py-1 bg-blue-100 rounded text-blue-700 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-300 dark:hover:bg-blue-800 font-medium" %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-center text-gray-500 mt-12 text-lg">
+        No posts found.
+      </div>
+    <% end %>
+  </turbo-frame>
+</main>
+

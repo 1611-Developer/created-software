@@ -1,0 +1,71 @@
+<% content_for :title, "Showing Post" %>
+
+<div class="flex items-start justify-center min-h-screen bg-gray-100 dark:bg-black">
+  <div class="md:w-2/3 w-full max-w-2xl mx-auto my-10">
+    <!-- Heading outside the card -->
+    <div class="mb-10">
+      <h1 class="font-extrabold text-3xl md:text-4xl text-gray-900 tracking-tight text-center dark:text-white">Project Details</h1>
+    </div>
+
+    <!-- Single post shown as a card -->
+    <div class="bg-white border border-gray-200 rounded-xl shadow-lg p-8 mb-8 flex flex-col items-center dark:bg-black">
+      <h2 class="text-2xl font-bold text-gray-900 mb-4 break-words dark:text-white <%= @post.title.length < 75 ? 'text-center' : 'text-left w-full' %>">
+        <%= @post.title %>
+      </h2>
+      <p class="text-gray-700 text-base mb-3 w-full dark:text-white <%= @post.description.length < 75 ? 'text-center' : 'text-left' %>">
+        <%= @post.description %>
+      </p>
+      <% if @post.created_at == @post.updated_at %>
+        <p class="text-sm text-gray-500 mb-4 text-center w-full dark:text-white">
+          <span class="font-semibold text-gray-700 dark:text-white">Created:</span>
+          <time class="user-local-time" datetime="<%= @post.created_at.iso8601 %>">
+            <%= @post.created_at.strftime("%m/%d/%Y %I:%M %p") %>
+          </time>
+        </p>
+      <% else %>
+        <p class="text-sm text-gray-500 mb-4 text-center w-full">
+          <span class="font-semibold text-gray-700 dark:text-white">Updated:</span>
+          <time class="user-local-time dark:text-white" datetime="<%= @post.updated_at.iso8601 %>">
+            <%= @post.updated_at.strftime("%m/%d/%Y %I:%M %p") %>
+          </time>
+        </p>
+      <% end %>
+    </div>
+
+    <div class="flex flex-col sm:flex-row sm:items-center justify-center gap-3">
+      <% if current_user && current_user.id == @post.user_id %>
+        <%= link_to "Edit this post", edit_post_path(@post), class: "w-full sm:w-auto text-center rounded-md px-4 py-2 bg-gray-100 hover:bg-gray-200 font-medium text-gray-800 border transition" %>
+      <% end %>
+
+      <% if current_user && current_user.id == @post.user_id %>
+        <%= link_to "Back to Dashboard", dashboard_path, class: "w-full sm:w-auto text-center rounded-md px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-700 font-medium border transition" %>
+      <% else %>
+        <%= link_to "Go to #{@post.user.user_name.capitalize}'s Profile", profile_by_username_path(@post.user.user_name), class: "w-full sm:w-auto text-center rounded-md px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-700 font-medium border transition" %>
+      <% end %>
+
+      <% if current_user && current_user.id == @post.user_id %>
+        <%= button_to "Delete this post", @post, method: :delete, form_class: "sm:inline-block", class: "w-full sm:w-auto text-center rounded-md px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold shadow transition", data: { turbo_confirm: "Are you sure?" } %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  function updateUserLocalTimes() {
+    document.querySelectorAll('.user-local-time').forEach(function (el) {
+      const dt = el.getAttribute('datetime');
+      if (dt) {
+        const jsDate = new Date(dt);
+        const options = {
+          year: "numeric", month: "2-digit", day: "2-digit",
+          hour: "2-digit", minute: "2-digit",
+          hour12: true
+        };
+        el.textContent = jsDate.toLocaleString("en-US", options);
+      }
+    });
+  }
+  document.addEventListener("DOMContentLoaded", updateUserLocalTimes);
+  document.addEventListener("turbo:load", updateUserLocalTimes);
+</script>
+

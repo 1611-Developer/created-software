@@ -1,0 +1,77 @@
+<main class="flex items-start justify-center min-h-screen bg-gray-100 dark:bg-black">
+  <% content_for :title, "#{@user.first_name} | @#{@user.user_name}" %>
+
+  <div class="w-full max-w-5xl mx-auto my-10">
+    <!-- Profile header -->
+    <div class="mb-10 flex flex-col items-center">
+      <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight text-center dark:text-white">
+        <%= @user.first_name.capitalize %>'s profile
+      </h1>
+    </div>
+
+    <div class="p-0">
+      <% if @posts.any? %>
+        <div class="grid grid-cols-1 md:grid-cols-1 gap-8">
+          <% @posts.each do |post| %>
+            <div class="bg-white border border-gray-200 rounded-xl shadow-xl p-6 flex flex-col items-center dark:bg-black">
+              <h2 class="dark:text-white <%= post.title.length < 75 ? 'text-2xl font-bold text-gray-900 mb-4 break-words text-center' : 'text-2xl font-bold text-gray-900 mb-4 break-words text-left w-full' %>">
+                <%= post.title %>
+              </h2>
+              <div class="w-full">
+                <p class="dark:text-white <%= post.description.length < 75 ? 'text-gray-700 text-base mb-3 w-full text-center' : 'text-gray-700 text-base mb-3 w-full text-left' %>">
+                  <%= post.description %>
+                </p>
+                <p class="text-md text-gray-500 mb-4 text-center w-full dark:text-white"> Created by
+              <%= link_to post.user.user_name.capitalize, profile_by_username_path(post.user.user_name),
+          class: "text-blue-600 dark:text-blue-300 hover:underline font-semibold" %>
+                </p>
+              </div>
+              <% if post.created_at == post.updated_at %>
+                <p class="text-sm text-gray-500 mb-4 text-center w-full dark:text-white">
+                  <span class="font-semibold text-gray-700 dark:text-white">Created:</span>
+                  <time class="user-local-time" datetime="<%= post.created_at.iso8601 %>">
+                    <%= post.created_at.strftime("%m/%d/%Y %I:%M %p") %>
+                  </time>
+                </p>
+              <% else %>
+                <p class="text-sm text-gray-500 mb-4 text-center w-full">
+                  <span class="font-semibold text-gray-700 dark:text-white">Updated:</span>
+                  <time class="user-local-time dark:text-white" datetime="<%= post.updated_at.iso8601 %>">
+                    <%= post.updated_at.strftime("%m/%d/%Y %I:%M %p") %>
+                  </time>
+                </p>
+              <% end %>
+              <div class="flex flex-col md:flex-row justify-center items-center gap-3 mt-2 w-full">
+                <%= link_to "Show", post, class: "px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 text-gray-900 font-medium shadow-sm transition w-full md:w-auto text-center" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="py-20 flex flex-col items-center">
+          <p class="text-xl text-gray-400 font-medium mb-4">No posts found.</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</main>
+
+<script>
+  function updateUserLocalTimes() {
+    document.querySelectorAll('.user-local-time').forEach(function (el) {
+      const dt = el.getAttribute('datetime');
+      if (dt) {
+        const jsDate = new Date(dt);
+        const options = {
+          year: "numeric", month: "2-digit", day: "2-digit",
+          hour: "2-digit", minute: "2-digit",
+          hour12: true
+        };
+        el.textContent = jsDate.toLocaleString("en-US", options);
+      }
+    });
+  }
+  document.addEventListener("DOMContentLoaded", updateUserLocalTimes);
+  document.addEventListener("turbo:load", updateUserLocalTimes);
+</script>
+

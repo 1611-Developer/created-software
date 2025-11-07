@@ -1,0 +1,20 @@
+" ============================================================================
+" Netrw Directory Listing                                        (netrw v173)
+"   /Users/alexander/Development/rails/rails_template/app/views/posts
+"   Sorted by      name
+"   Sort sequence: [\/]$,\<core\%(\.\d\+\)\=\>,\.h$,\.c$,\.cpp$,\~\=\*$,*,\.o$,\.obj$,\.info$,\.swp$,\.bak$,\~$
+"   Quick Help: <F1>:help  -:go up dir  D:delete  R:rename  s:sort-by  x:special
+" ==============================================================================
+../
+./
+_form.html.erb
+_post.html.erb
+_post.json.jbuilder
+edit.html.erb
+explore.html.erb
+index.html.erb
+index.json.jbuilder
+new.html.erb
+show.html.erb
+show.json.jbuilder
+.explore.html.erb.swp

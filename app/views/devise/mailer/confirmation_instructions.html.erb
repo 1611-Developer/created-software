@@ -1,0 +1,18 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-50">
+  <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-md text-center">
+    <p class="mb-4 text-2xl font-bold text-gray-800">
+      Welcome <%= @email %>!
+    </p>
+
+    <p class="mb-6 text-gray-700">
+      You can confirm your account email through the link below:
+    </p>
+
+    <p>
+      <%= link_to 'Confirm my account',
+        confirmation_url(@resource, confirmation_token: @token),
+        class: "inline-block w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded font-semibold transition-colors" %>
+    </p>
+  </div>
+</div>
+

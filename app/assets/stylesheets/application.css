@@ -1,0 +1,158 @@
+/*
+ * This is a manifest file that'll be compiled into application.css.
+ *
+ * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
+ * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
+ * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
+ * depending on specificity.
+ *
+ * Consider organizing styles into separate files for maintainability.
+ */
+
+/* WAVE BACKGROUND STYLING */
+.air {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: url('https://1.bp.blogspot.com/-xQUc-TovqDk/XdxogmMqIRI/AAAAAAAACvI/AizpnE509UMGBcTiLJ58BC6iViPYGYQfQCLcBGAsYHQ/s1600/wave.png');
+  background-size: 1000px 100px;
+}
+
+/* Wave Layers */
+.air1 {
+  animation: wave 30s linear infinite;
+  z-index: 1000;
+  opacity: 1;
+  bottom: 0;
+}
+
+.air2 {
+  animation: wave2 15s linear infinite;
+  z-index: 999;
+  opacity: 0.5;
+  bottom: 10px;
+}
+
+.air3 {
+  animation: wave 30s linear infinite;
+  z-index: 998;
+  opacity: 0.2;
+  bottom: 15px;
+}
+
+.air4 {
+  animation: wave2 5s linear infinite;
+  z-index: 997;
+  opacity: 0.7;
+  bottom: 20px;
+}
+
+/* Wave motion animations */
+@keyframes wave {
+  0% {
+    background-position-x: 0px;
+  }
+  100% {
+    background-position-x: 1000px;
+  }
+}
+
+@keyframes wave2 {
+  0% {
+    background-position-x: 0px;
+  }
+  100% {
+    background-position-x: -1000px;
+  }
+}
+
+/* Optional dark mode tweak */
+@media (prefers-color-scheme: dark) {
+  .air {
+    filter: brightness(1.7);
+  }
+}
+
+.cabin-sketch-regular {
+  font-family: "Cabin Sketch", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.cabin-sketch-bold {
+  font-family: "Cabin Sketch", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.gradient-stroke-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.gradient-text-stroke {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: transparent;
+  -webkit-text-stroke: 3px black; /* adjust this value for more/less thickness */
+  pointer-events: none;
+  font: inherit;
+}
+
+.gradient-text-fill {
+  background: linear-gradient(90deg, #ff595e, #fcbf49, #1982c4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+  font: inherit;
+}
+
+
+.multicolor-text {             
+  background: linear-gradient(90deg, #ff595e, #fcbf49, #1982c4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;       
+  font-weight: inherit;
+
+}
+
+/* For Chrome, Edge, Brave, Safari */
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+.arrow-wrapper {
+  display: inline-block;
+  animation: bounce-vertical 1.5s infinite ease-in-out;
+}
+
+.animated-arrow {
+  width: 24px;
+  height: 24px;
+  border-bottom-width: 4px;
+  border-right-width: 4px;
+  border-style: solid;
+  /* border-color now set by Tailwind utility classes */
+  transform: rotate(45deg);
+}
+
+
+@keyframes bounce-vertical {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(10px);
+    opacity: 0.5;
+  }
+}
+

@@ -1,0 +1,10 @@
+<% content_for :title, "New Project" %>
+
+<div class="flex justify-center items-center min-h-screen bg-gray-50 dark:bg-black">
+  <div class="md:w-2/3 w-full max-w-xl">
+
+    <%= render "form", post: @post %>
+
+    <%= link_to "Back to projects", posts_path, class: "block text-center mt-4 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 font-medium" %>
+  </div>
+</div>
