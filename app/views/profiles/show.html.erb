@@ -17,15 +17,53 @@
               <h2 class="dark:text-white <%= post.title.length < 75 ? 'text-2xl font-bold text-gray-900 mb-4 break-words text-center' : 'text-2xl font-bold text-gray-900 mb-4 break-words text-left w-full' %>">
                 <%= post.title %>
               </h2>
-              <div class="w-full">
-                <p class="dark:text-white <%= post.description.length < 75 ? 'text-gray-700 text-base mb-3 w-full text-center' : 'text-gray-700 text-base mb-3 w-full text-left' %>">
-                  <%= post.description %>
-                </p>
-                <p class="text-md text-gray-500 mb-4 text-center w-full dark:text-white"> Created by
-              <%= link_to post.user.user_name.capitalize, profile_by_username_path(post.user.user_name),
-          class: "text-blue-600 dark:text-blue-300 hover:underline font-semibold" %>
+
+              <div class="w-full flex justify-center">
+                <p class="dark:text-white text-2xl text-gray-900 mb-4 break-words text-center max-w-2xl">
+                  <%= post.description
+                      .split(/\s+/)
+                      .each_slice(10)
+                      .map { |words| words.join(' ') }
+                      .join('<br>')
+                      .html_safe %>
                 </p>
               </div>
+
+              <br>
+
+              <h2 class="dark:text-white text-2xl text-gray-900 mb-4 break-words text-center w-full">
+                Repo link:
+                <%= link_to post.repo_link, post.repo_link,
+                      target: "_blank",
+                      rel: "noopener",
+                      class: "text-blue-600 underline hover:text-blue-800" %>
+              </h2>
+
+              <h2 class="dark:text-white text-2xl text-gray-900 mb-4 break-words text-center w-full">
+                Live Demo link:
+                <%= link_to post.demo_link, post.demo_link,
+                      target: "_blank",
+                      rel: "noopener",
+                      class: "text-blue-600 underline hover:text-blue-800" %>
+              </h2>
+
+              <% if post.screenshot.attached? %>
+                <%= image_tag post.screenshot, alt: "#{post.title} screenshot", class: "rounded mb-4 shadow max-w-full" %>
+              <% end %>
+
+              <%= link_to post.user.user_name, profile_by_username_path(post.user.user_name),
+                  class: "text-blue-600 dark:text-blue-300 hover:underline font-semibold" %>
+
+              <div>
+                <p class="dark:text-white">
+                  <% if post.is_public? %>
+                    Public Post
+                  <% else %>
+                    Private Post
+                  <% end %>
+                </p>
+              </div>
+
               <% if post.created_at == post.updated_at %>
                 <p class="text-sm text-gray-500 mb-4 text-center w-full dark:text-white">
                   <span class="font-semibold text-gray-700 dark:text-white">Created:</span>
@@ -41,8 +79,10 @@
                   </time>
                 </p>
               <% end %>
+
               <div class="flex flex-col md:flex-row justify-center items-center gap-3 mt-2 w-full">
-                <%= link_to "Show", post, class: "px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 text-gray-900 font-medium shadow-sm transition w-full md:w-auto text-center" %>
+                <%= link_to "Show", post,
+                      class: "px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 text-gray-900 font-medium shadow-sm transition w-full md:w-auto text-center" %>
               </div>
             </div>
           <% end %>
@@ -58,7 +98,7 @@
 
 <script>
   function updateUserLocalTimes() {
-    document.querySelectorAll('.user-local-time').forEach(function (el) {
+    document.querySelectorAll('.user-local-time').forEach(el => {
       const dt = el.getAttribute('datetime');
       if (dt) {
         const jsDate = new Date(dt);
