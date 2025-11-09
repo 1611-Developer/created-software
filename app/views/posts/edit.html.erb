@@ -1,5 +1,12 @@
-<div class="flex justify-center items-center min-h-screen bg-gray-100 dark:bg-black">
-  <div class="md:w-2/3 w-full max-w-xl">
-    <%= render "form", post: @post %>
+<div class="flex justify-center items-start min-h-screen bg-gray-100 dark:bg-black">
+  <div class="w-full max-w-5xl mx-auto my-10 px-2">
+    <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white mb-6 text-center">
+      <%= @post.new_record? ? "New Project" : "Edit Project" %>
+    </h1>
+
+    <div class="md:w-2/3 w-full max-w-xl mx-auto">
+      <%= render "form", post: @post %>
+    </div>
   </div>
 </div>
+

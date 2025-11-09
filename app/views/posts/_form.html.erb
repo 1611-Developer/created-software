@@ -1,9 +1,5 @@
 <div class="flex items-start justify-center min-h-screen dark:bg-black">
-  <div class="w-full max-w-lg p-8 rounded-lg shadow-lg dark:bg-black mt-12 bg-gray-50">
-    <h2 class="mb-8 text-3xl font-bold text-center text-gray-900 dark:text-white">
-      <%= post.new_record? ? 'New Project' : 'Edit Project' %>
-    </h2>
-
+  <div class="w-full max-w-lg rounded-lg shadow-lg dark:bg-black mt-4 bg-gray-50">
     <%= form_with(model: post, local: true) do |form| %>
       <% if post.errors.any? %>
         <div id="error_explanation" class="mb-6 bg-red-50 border border-red-100 text-red-600 px-4 py-3 rounded">
