@@ -2,6 +2,9 @@
   <% content_for :title, "Projects" %>
 
   <div class="w-full max-w-5xl mx-auto my-10">
+    <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white mb-8 text-center">
+      Dashboard
+    </h1>
     <% if @posts.any? %>
       <div class="grid grid-cols-1 md:grid-cols-1 gap-8">
         <% @posts.each do |post| %>
