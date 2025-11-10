@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :user
 
-  validates :title, :description, :repo_link, :demo_link, presence: true
+  validates :title, :description, :repo_link, :demo_link, :screenshot, presence: true
   validates :is_public, inclusion: { in: [true, false] }
 
   before_validation :generate_slug, on: :create
