@@ -19,7 +19,7 @@ class Post < ApplicationRecord
 
   def unique_slug_per_user
     if self.class.where(user_id: user_id, slug: slug).where.not(id: id).exists?
-      errors.add(:base, "You have already used this title for another post. Please choose a new one.")
+      errors.add(:base, "You have already used this title for another project. Please choose a new one.")
     end
   end
 end

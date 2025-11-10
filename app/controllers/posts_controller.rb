@@ -34,7 +34,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
-      redirect_to @post, notice: 'Private was successfully created.'
+      redirect_to @post, notice: 'Project was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
@@ -43,7 +43,7 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
     if @post.update(post_params)
-      redirect_to @post, notice: 'Private was successfully updated.'
+      redirect_to @post, notice: 'Project was successfully updated.'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -52,7 +52,7 @@ class PostsController < ApplicationController
   # DELETE /posts/1 or /posts/1.json
   def destroy
     @post.destroy
-    redirect_to posts_url, notice: 'Private was successfully destroyed'
+    redirect_to posts_url, notice: 'Project was successfully destroyed'
   end
 
 def explore
