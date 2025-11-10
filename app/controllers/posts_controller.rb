@@ -17,7 +17,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     unless @post.is_public || (current_user && current_user == @post.user)
-      redirect_to root_path, alert: "This post is private."
+      redirect_to root_path, alert: "This is private."
     end
   end
 
@@ -34,7 +34,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
-      redirect_to @post, notice: 'Post was successfully created.'
+      redirect_to @post, notice: 'Private was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
@@ -43,7 +43,7 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
     if @post.update(post_params)
-      redirect_to @post, notice: 'Post was successfully updated.'
+      redirect_to @post, notice: 'Private was successfully updated.'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -52,7 +52,7 @@ class PostsController < ApplicationController
   # DELETE /posts/1 or /posts/1.json
   def destroy
     @post.destroy
-    redirect_to posts_url, notice: 'Post was successfully destroyed'
+    redirect_to posts_url, notice: 'Private was successfully destroyed'
   end
 
 def explore
@@ -79,7 +79,7 @@ end
     user = User.find_by!(user_name: params[:user_name])
     @post = user.posts.find_by!(slug: params[:slug])
     unless @post.is_public || (current_user && current_user == @post.user)
-      redirect_to root_path, alert: "This post is private."
+      redirect_to root_path, alert: "This project is private."
       return
     end
     render :show
