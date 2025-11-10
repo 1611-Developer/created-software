@@ -67,7 +67,7 @@
               </p>
             <% end %>
             <div class="flex flex-col md:flex-row justify-center items-center gap-3 mt-2 w-full">
-              <%= link_to "Show", post, class: "px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 text-gray-900 font-medium shadow-sm transition w-full md:w-auto text-center" %>
+              <%= link_to "Show", user_post_path(user_name: post.user.user_name, slug: post.slug), class: "px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 text-gray-900 font-medium shadow-sm transition w-full md:w-auto text-center" %>
 
               <% if post.user == current_user %>
                 <%= link_to "Edit", edit_post_path(post), class: "px-4 py-2 rounded bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium shadow-sm transition w-full md:w-auto text-center" %>
