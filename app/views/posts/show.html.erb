@@ -1,4 +1,4 @@
-<% content_for :title, "Showing Post" %>
+<% content_for :title, "#{@post.user.first_name}'s #{@post.title}" %>
 
 <div class="flex items-start justify-center min-h-screen bg-gray-100 dark:bg-black">
   <div class="w-full max-w-5xl mx-auto my-10">
