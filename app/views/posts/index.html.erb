@@ -123,48 +123,34 @@
 </div>
 
 <script>
-  function openDeleteProjectModal(button) {
-    const modal = document.getElementById("deleteProjectModal");
-    const input = document.getElementById("delete-project-confirm-input");
-    const deleteForm = document.getElementById("delete-project-form");
-    const deleteBtn = document.getElementById("confirm-delete-project-btn");
+function openDeleteProjectModal(button) {
+  const modal = document.getElementById("deleteProjectModal");
+  const input = document.getElementById("delete-project-confirm-input");
+  const deleteForm = document.getElementById("delete-project-form");
+  const deleteBtn = document.getElementById("confirm-delete-project-btn");
 
-    modal.classList.remove("hidden");
-    input.value = "";
-    deleteBtn.disabled = true;
-    input.focus();
+  modal.classList.remove("hidden");
+  input.value = "";
+  deleteBtn.disabled = true;
+  input.focus();
 
-    // Set form action dynamically using data attribute from button
-    deleteForm.action = button.dataset.deleteUrl;
-  }
+  // Set form action dynamically using data attribute from button
+  deleteForm.action = button.dataset.deleteUrl;
 
-  function closeDeleteProjectModal() {
-    document.getElementById("deleteProjectModal").classList.add("hidden");
-  }
+  // Remove previous event listeners to avoid duplicates (optional)
+  input.replaceWith(input.cloneNode(true));
+  const newInput = document.getElementById("delete-project-confirm-input");
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const input = document.getElementById("delete-project-confirm-input");
-    const deleteBtn = document.getElementById("confirm-delete-project-btn");
-
-    input.addEventListener("input", () => {
-      deleteBtn.disabled = (input.value.trim().toLowerCase() !== "delete project");
-    });
+  // Add input listener to enable button based on exact input
+  newInput.addEventListener("input", () => {
+    deleteBtn.disabled = (newInput.value.trim().toLowerCase() !== "delete project");
   });
+}
 
-  function updateUserLocalTimes() {
-    document.querySelectorAll('.user-local-time').forEach(function (el) {
-      const dt = el.getAttribute('datetime');
-      if (dt) {
-        const jsDate = new Date(dt);
-        const options = {
-          year: "numeric", month: "2-digit", day: "2-digit",
-          hour: "2-digit", minute: "2-digit",
-          hour12: true
-        };
-        el.textContent = jsDate.toLocaleString("en-US", options);
-      }
-    });
-  }
-  document.addEventListener("DOMContentLoaded", updateUserLocalTimes);
-  document.addEventListener("turbo:load", updateUserLocalTimes);
+function closeDeleteProjectModal() {
+  document.getElementById("deleteProjectModal").classList.add("hidden");
+}
+
+// Remove the old event listener setup inside DOMContentLoaded if present
+
 </script>
