@@ -28,7 +28,7 @@
                 data: { turbo_frame: "_top" } %>
               • <%= post.created_at.strftime('%b %d, %Y') %>
             </div>
-            <%= link_to "View Project", user_post_path(user_name: post.user.user_name, slug: post.slug),
+            <%= link_to "View Project", user_project_path(user_name: post.user.user_name, slug: post.slug),
               class: "inline-block mt-2 px-3 py-1 bg-blue-100 rounded text-blue-700 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-300 dark:hover:bg-blue-800 font-medium",
               data: { turbo_frame: "_top" } %>
           </div>

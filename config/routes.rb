@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :posts
   get "home/index"
   get "dashboard", to: "dashboard#index", as: :dashboard
-  get '/by/:user_name/post/:slug', to: 'posts#show_by_slug', as: :user_post, constraints: { user_name: /[^\/]+/ }
+  get '/by/:user_name/project/:slug', to: 'posts#show_by_slug', as: :user_project, constraints: { user_name: /[^\/]+/ }
   get "/explore", to: "posts#explore", as: :explore
 
   # Custom settings pages for editing email and password
