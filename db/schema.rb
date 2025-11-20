@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_07_195839) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_20_033112) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -52,6 +52,30 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_07_195839) do
     t.string "slug"
     t.string "repo_link"
     t.string "demo_link"
+  end
+
+  create_table "solid_queue_failed_executions", force: :cascade do |t|
+    t.text "job_data", null: false
+    t.text "error_message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "solid_queue_jobs", force: :cascade do |t|
+    t.string "queue_name", null: false
+    t.text "job_data", null: false
+    t.datetime "scheduled_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["queue_name"], name: "index_solid_queue_jobs_on_queue_name"
+    t.index ["scheduled_at"], name: "index_solid_queue_jobs_on_scheduled_at"
+  end
+
+  create_table "solid_queue_processes", force: :cascade do |t|
+    t.string "hostname", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "kind"
   end
 
   create_table "users", force: :cascade do |t|
